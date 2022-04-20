@@ -1,0 +1,34 @@
+<app-header-section></app-header-section>
+
+<a pButton data-testid="addButton" class="p-button-sm" (click)='redirectToAddNew()'>
+  Add new
+</a>
+<br />
+
+<ng-container *ngIf="employees$ | async as data; else noDataFound">
+  <p-table *ngIf="data" [value]="data" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+      <tr>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.email }}</td>
+        <td>
+          <a pButton class="p-button-sm" routerLink="/employee/{{employee.id}}">
+            Edit
+          </a>
+      </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-container>
+<ng-template #noDataFound>
+  No data found.
+</ng-template>
